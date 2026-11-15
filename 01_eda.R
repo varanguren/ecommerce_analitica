@@ -92,7 +92,7 @@ resumen_num <- bind_rows(lapply(vars_num, function(v) {
 }))
 
 cat("--- Estadisticas descriptivas (variables numericas) ---\n")
-print(resumen_num, width = Inf)
+print(tibble::as_tibble(resumen_num), width = Inf)
 cat("\n")
 
 # ---- 6. Tablas de frecuencia: variables categoricas -------------------------
@@ -105,17 +105,17 @@ tabla_frecuencia <- function(df, var) {
 
 for (v in c("review_sentiment", "gender", "customer_type", "shipping_method")) {
   cat("--- Tabla de frecuencia:", v, "---\n")
-  print(tabla_frecuencia(datos, v), width = Inf)
+  print(tibble::as_tibble(tabla_frecuencia(datos, v)), width = Inf)
   cat("\n")
 }
 
 cat("--- Variable dependiente del logit: sentimiento_positivo ---\n")
 cat("(1 = resena positiva; 0 = neutral o negativa, segun la decision documentada)\n")
-print(tabla_frecuencia(datos, "sentimiento_positivo"), width = Inf)
+print(tibble::as_tibble(tabla_frecuencia(datos, "sentimiento_positivo")), width = Inf)
 cat("\n")
 
 cat("--- Distribucion de la diferencia de entrega (dias) ---\n")
-print(tabla_frecuencia(datos, "diferencia_entrega"), width = Inf)
+print(tibble::as_tibble(tabla_frecuencia(datos, "diferencia_entrega")), width = Inf)
 cat("\n")
 
 # ---- 7. Tabla LaTeX de descriptivas -----------------------------------------
