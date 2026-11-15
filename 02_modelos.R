@@ -208,7 +208,7 @@ tabla_or <- data.frame(
   ic_sup = exp(ic_logit[, 2])
 )
 cat("--- Odds ratios (logit) ---\n")
-print(tabla_or)
+print(tibble::as_tibble(tabla_or), width = Inf)
 cat("\n")
 
 # ---- 9. Robustez del logit: atraso como variable binaria --------------------
@@ -232,7 +232,7 @@ tabla_or_rob <- data.frame(
   ic_sup = exp(ic_rob[, 2])
 )
 cat("\n--- Odds ratios (logit, robustez) ---\n")
-print(tabla_or_rob)
+print(tibble::as_tibble(tabla_or_rob), width = Inf)
 cat("\n")
 
 # ---- 10. Exportar tablas en LaTeX --------------------------------------------
