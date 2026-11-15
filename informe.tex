@@ -7,6 +7,7 @@
 \usepackage{geometry}
 \geometry{margin=2.5cm}
 \usepackage{graphicx}
+\usepackage{placeins}
 \usepackage{booktabs}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -153,6 +154,7 @@ modelos.
 \end{figure}
 
 %=================================================================
+\FloatBarrier
 \section{Metodología}
 %=================================================================
 
@@ -218,18 +220,7 @@ La especificación con atraso binario confirma el resultado: llegar tarde se
 asocia con 0,531 estrellas menos en promedio ($p<0{,}01$), con un ajuste
 ligeramente mejor ($R^2 = 0{,}153$). Es decir, lo que más se asocia con la
 insatisfacción no es cuántos días tarde el envío en términos absolutos, sino
-el hecho de incumplir la fecha prometida. Los gráficos de diagnóstico de los
-residuos (Figura \ref{fig:diag}) no muestran problemas graves de la
-especificación, más allá de la discreción propia de una variable dependiente
-acotada.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.85\textwidth]{salidas/figuras/diag_residuos_ols.png}
-    \caption{Diagnóstico de residuos del modelo de regresión lineal}
-    \label{fig:diag}
-\end{figure}
-
+el hecho de incumplir la fecha prometida. 
 \subsection{Modelo logit}
 
 \input{salidas/tablas/tabla_logit}
@@ -251,6 +242,57 @@ llega tarde las probabilidades de una reseña positiva son aproximadamente 86\%
 menores. Este resultado es consistente con la asimetría documentada por
 \textcite{ravula2023} y \textcite{nozari2026}: el incumplimiento de la promesa
 pesa mucho más que cualquier otra característica del envío.
+
+
+\subsection{Diagnóstico de los residuos}
+
+La Figura \ref{fig:diag} reúne los cuatro gráficos de diagnóstico del modelo
+de regresión lineal, que permiten revisar los supuestos de la estimación por
+mínimos cuadrados ordinarios.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{salidas/figuras/diag_residuos_ols.png}
+    \caption{Diagnóstico de residuos del modelo de regresión lineal}
+    \label{fig:diag}
+\end{figure}
+
+En el gráfico de residuos frente a valores ajustados (\textit{Residuals vs
+Fitted}), la línea suavizada roja se mantiene prácticamente plana alrededor de
+cero en todo el rango de valores ajustados. No se observa una curva ni un
+patrón sistemático en los residuos, lo que sugiere que la forma funcional
+lineal es razonable para estos datos. Las columnas de puntos que se ven en el
+gráfico no son un problema del modelo: aparecen porque la calificación solo
+puede tomar valores enteros entre 1 y 5, de modo que los residuos se agrupan
+en bandas discretas.
+
+En cuanto a la heterocedasticidad, tanto en el gráfico de residuos frente a
+valores ajustados como en el de escala-localización (\textit{Scale-Location})
+la dispersión de los residuos es similar en todos los niveles de valores
+ajustados y la línea suavizada es casi horizontal. No se ve el patrón de
+embudo característico de la heterocedasticidad, por lo que la hipótesis de
+varianza constante de los errores se sostiene razonablemente bien.
+
+En el gráfico Q-Q, los residuos estandarizados siguen de cerca la línea
+diagonal en casi todo el rango, con desviaciones leves en los extremos. Esto
+indica que la distribución de los residuos es aproximadamente normal, con
+colas un poco más pesadas que las de una normal perfecta, algo habitual cuando
+la variable dependiente está acotada entre 1 y 5. Con una muestra de 113.559
+observaciones, estas desviaciones menores no comprometen la validez de la
+inferencia.
+
+Por último, el gráfico de residuos frente a apalancamiento (\textit{Residuals
+vs Leverage}) no muestra observaciones por fuera de las líneas de distancia de
+Cook, es decir, ningún punto individual tiene una influencia desproporcionada
+sobre los coeficientes estimados.
+
+En conjunto, los diagnósticos no muestran problemas graves de especificación:
+no hay evidencia de heterocedasticidad, los residuos son aproximadamente
+normales y no aparece ningún patrón sistemático sin capturar. La principal
+limitación sigue siendo la naturaleza acotada y discreta de la calificación,
+que se traduce en las bandas visibles de los gráficos y que aconseja
+interpretar los resultados como asociaciones promedio y no como efectos
+causales.
 
 %=================================================================
 \section{Conclusiones}
