@@ -1,0 +1,88 @@
+=============================================================
+EDA - PROYECTO ECOMMERCE (tiempo de entrega y satisfaccion)
+Corrida: 2026-11-14 20:03:10.451974 
+=============================================================
+
+Observaciones totales de la base: 138116 
+Columnas totales: 48 
+
+--- Valores faltantes por variable ---
+        customer_rating        review_sentiment           delivery_days estimated_delivery_days      diferencia_entrega            customer_age 
+                  24557                   24557                   24557                   24557                   24557                       0 
+                 gender           customer_type         shipping_method 
+                      0                       0                       0 
+
+Nota: los faltantes de rating/sentimiento/tiempos corresponden a
+pedidos cancelados o pendientes, que nunca se entregaron.
+
+--- Estadisticas descriptivas (variables numericas) ---
+# A tibble: 5 × 8
+  variable                     n faltantes  media desv_est minimo mediana maximo
+  <chr>                    <int>     <int>  <dbl>    <dbl>  <dbl>   <dbl>  <dbl>
+1 customer_rating         113559     24557  3.68     0.484    1.6     3.7      5
+2 delivery_days           113559     24557  4.56     2.81     0       4       14
+3 estimated_delivery_days 113559     24557  4.30     2.59     0       4       10
+4 diferencia_entrega      113559     24557  0.259    1.12    -2       0        4
+5 customer_age            138116         0 45.9     16.5     18      46       74
+
+--- Tabla de frecuencia: review_sentiment ---
+# A tibble: 4 × 3
+  review_sentiment     n porcentaje
+  <chr>            <int>      <dbl>
+1 Positive         78083      56.5 
+2 Neutral          34684      25.1 
+3 <NA>             24557      17.8 
+4 Negative           792       0.57
+
+--- Tabla de frecuencia: gender ---
+# A tibble: 3 × 3
+  gender         n porcentaje
+  <chr>      <int>      <dbl>
+1 Female     66439       48.1
+2 Male       66284       48.0
+3 Non-Binary  5393        3.9
+
+--- Tabla de frecuencia: customer_type ---
+# A tibble: 3 × 3
+  customer_type      n porcentaje
+  <chr>          <int>      <dbl>
+1 Loyal         129447      93.7 
+2 Returning       8335       6.03
+3 New              334       0.24
+
+--- Tabla de frecuencia: shipping_method ---
+# A tibble: 4 × 3
+  shipping_method     n porcentaje
+  <chr>           <int>      <dbl>
+1 Standard        62006       44.9
+2 Express         34373       24.9
+3 Economy         27824       20.2
+4 Same Day        13913       10.1
+
+--- Variable dependiente del logit: sentimiento_positivo ---
+(1 = resena positiva; 0 = neutral o negativa, segun la decision documentada)
+# A tibble: 3 × 3
+  sentimiento_positivo     n porcentaje
+                 <dbl> <int>      <dbl>
+1                    1 78083       56.5
+2                    0 35476       25.7
+3                   NA 24557       17.8
+
+--- Distribucion de la diferencia de entrega (dias) ---
+# A tibble: 8 × 3
+  diferencia_entrega     n porcentaje
+               <dbl> <int>      <dbl>
+1                  0 87427      63.3 
+2                 NA 24557      17.8 
+3                 -1  5213       3.77
+4                  4  4316       3.12
+5                  3  4310       3.12
+6                  2  4225       3.06
+7                  1  4035       2.92
+8                 -2  4033       2.92
+
+Tabla LaTeX de descriptivas guardada en salidas/tablas/tabla_descriptivas.tex
+
+Graficos guardados en salidas/figuras/
+
+Fin del EDA.

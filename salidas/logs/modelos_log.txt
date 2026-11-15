@@ -1,0 +1,477 @@
+=============================================================
+MODELOS - PROYECTO ECOMMERCE (tiempo de entrega y satisfaccion)
+Corrida: 2026-11-14 20:08:33.220351 
+=============================================================
+
+Observaciones en la muestra del modelo: 113559 
+
+Categorias de referencia de las variables categoricas:
+  gender:           Female 
+  customer_type:    Loyal 
+  shipping_method:  Standard 
+
+NOTA DE INTERPRETACION: los resultados miden ASOCIACION entre el
+tiempo de entrega y la evaluacion del cliente; no prueban causalidad.
+
+=============================================================
+MODELO 1: REGRESION LINEAL MULTIPLE (OLS)
+Dependiente: customer_rating
+=============================================================
+
+Call:
+lm(formula = customer_rating ~ diferencia_entrega + estimated_delivery_days + 
+    customer_age + gender + customer_type + shipping_method, 
+    data = datos_modelo)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.95833 -0.31507 -0.01477  0.28526  1.74174 
+
+Coefficients:
+                          Estimate Std. Error  t value Pr(>|t|)    
+(Intercept)              3.727e+00  6.769e-03  550.601   <2e-16 ***
+diferencia_entrega      -1.667e-01  1.182e-03 -140.993   <2e-16 ***
+estimated_delivery_days -1.555e-03  1.024e-03   -1.519    0.129    
+customer_age            -2.769e-05  8.043e-05   -0.344    0.731    
+genderMale              -1.054e-03  2.701e-03   -0.390    0.696    
+genderNon-Binary         1.108e-02  7.003e-03    1.581    0.114    
+customer_typeNew        -1.611e-02  2.684e-02   -0.600    0.548    
+customer_typeReturning  -1.716e-03  5.571e-03   -0.308    0.758    
+shipping_methodEconomy  -2.586e-03  4.379e-03   -0.591    0.555    
+shipping_methodExpress   2.410e-03  4.511e-03    0.534    0.593    
+shipping_methodSame Day  9.952e-03  6.522e-03    1.526    0.127    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.4462 on 113548 degrees of freedom
+Multiple R-squared:  0.1491,	Adjusted R-squared:  0.149 
+F-statistic:  1989 on 10 and 113548 DF,  p-value: < 2.2e-16
+
+
+--- Medidas de ajuste (OLS) ---
+R2:             0.1491 
+R2 ajustado:    0.149 
+RMSE:           0.4462 
+AIC:            138989.3 
+BIC:            139104.9 
+Observaciones:  113559 
+
+=============================================================
+ROBUSTEZ OLS: atraso binario (atrasado = 1 si llego tarde)
+=============================================================
+
+Call:
+lm(formula = customer_rating ~ atrasado + estimated_delivery_days + 
+    customer_age + gender + customer_type + shipping_method, 
+    data = datos_modelo)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.75661 -0.26869  0.03457  0.32898  1.77409 
+
+Coefficients:
+                          Estimate Std. Error  t value Pr(>|t|)    
+(Intercept)              3.764e+00  6.770e-03  555.997   <2e-16 ***
+atrasado                -5.315e-01  3.713e-03 -143.134   <2e-16 ***
+estimated_delivery_days -1.199e-03  1.021e-03   -1.174   0.2404    
+customer_age            -4.285e-05  8.024e-05   -0.534   0.5933    
+genderMale              -9.091e-04  2.695e-03   -0.337   0.7358    
+genderNon-Binary         1.249e-02  6.987e-03    1.787   0.0739 .  
+customer_typeNew        -9.879e-03  2.678e-02   -0.369   0.7122    
+customer_typeReturning  -2.723e-03  5.558e-03   -0.490   0.6242    
+shipping_methodEconomy  -2.809e-03  4.369e-03   -0.643   0.5203    
+shipping_methodExpress   1.284e-03  4.501e-03    0.285   0.7754    
+shipping_methodSame Day -2.938e-03  6.507e-03   -0.451   0.6516    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.4452 on 113548 degrees of freedom
+Multiple R-squared:  0.1529,	Adjusted R-squared:  0.1529 
+F-statistic:  2050 on 10 and 113548 DF,  p-value: < 2.2e-16
+
+R2 ajustado: 0.1529 
+
+null device 
+          1 
+Graficos de diagnostico guardados en salidas/figuras/diag_residuos_ols.png
+
+=============================================================
+MODELO 2: LOGIT
+Dependiente: sentimiento_positivo (1 = Positive, 0 = Neutral/Negative)
+=============================================================
+
+Call:
+glm(formula = sentimiento_positivo ~ diferencia_entrega + estimated_delivery_days + 
+    customer_age + gender + customer_type + shipping_method, 
+    family = binomial(link = "logit"), data = datos_modelo)
+
+Coefficients:
+                          Estimate Std. Error z value Pr(>|z|)    
+(Intercept)              1.0349390  0.0347020  29.824   <2e-16 ***
+diferencia_entrega      -0.6390928  0.0066058 -96.747   <2e-16 ***
+estimated_delivery_days -0.0054476  0.0052375  -1.040    0.298    
+customer_age            -0.0001761  0.0004117  -0.428    0.669    
+genderMale              -0.0039799  0.0138238  -0.288    0.773    
+genderNon-Binary         0.0353462  0.0360995   0.979    0.328    
+customer_typeNew        -0.1360491  0.1354109  -1.005    0.315    
+customer_typeReturning  -0.0392041  0.0283584  -1.382    0.167    
+shipping_methodEconomy  -0.0167644  0.0223883  -0.749    0.454    
+shipping_methodExpress  -0.0004236  0.0231407  -0.018    0.985    
+shipping_methodSame Day  0.0161822  0.0333692   0.485    0.628    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 141042  on 113558  degrees of freedom
+Residual deviance: 129357  on 113548  degrees of freedom
+AIC: 129379
+
+Number of Fisher Scoring iterations: 4
+
+
+--- Medidas de ajuste (logit) ---
+Pseudo R2 de McFadden:  0.0829 
+AIC:                    129378.9 
+Porcentaje de aciertos (corte 0.5):  73.19 %
+Observaciones:          113559 
+
+--- Odds ratios (logit) ---
+                                       variable odds_ratio    ic_inf    ic_sup
+(Intercept)                         (Intercept)  2.8149346 2.6298437 3.0130523
+diferencia_entrega           diferencia_entrega  0.5277710 0.5209819 0.5346486
+estimated_delivery_days estimated_delivery_days  0.9945672 0.9844100 1.0048293
+customer_age                       customer_age  0.9998239 0.9990175 1.0006311
+genderMale                           genderMale  0.9960280 0.9694039 1.0233834
+genderNon-Binary               genderNon-Binary  1.0359783 0.9652120 1.1119330
+customer_typeNew               customer_typeNew  0.8727998 0.6693491 1.1380899
+customer_typeReturning   customer_typeReturning  0.9615544 0.9095680 1.0165122
+shipping_methodEconomy   shipping_methodEconomy  0.9833754 0.9411576 1.0274869
+shipping_methodExpress   shipping_methodExpress  0.9995765 0.9552535 1.0459561
+shipping_methodSame Day shipping_methodSame Day  1.0163138 0.9519715 1.0850049
+
+=============================================================
+ROBUSTEZ LOGIT: atraso binario (atrasado = 1 si llego tarde)
+=============================================================
+
+Call:
+glm(formula = sentimiento_positivo ~ atrasado + estimated_delivery_days + 
+    customer_age + gender + customer_type + shipping_method, 
+    family = binomial(link = "logit"), data = datos_modelo)
+
+Coefficients:
+                          Estimate Std. Error  z value Pr(>|z|)    
+(Intercept)              1.1619961  0.0349748   33.224   <2e-16 ***
+atrasado                -1.9430727  0.0183025 -106.164   <2e-16 ***
+estimated_delivery_days -0.0047312  0.0052683   -0.898    0.369    
+customer_age            -0.0002129  0.0004143   -0.514    0.607    
+genderMale              -0.0044223  0.0139092   -0.318    0.751    
+genderNon-Binary         0.0397953  0.0363222    1.096    0.273    
+customer_typeNew        -0.1195382  0.1355875   -0.882    0.378    
+customer_typeReturning  -0.0437875  0.0284941   -1.537    0.124    
+shipping_methodEconomy  -0.0178185  0.0225069   -0.792    0.429    
+shipping_methodExpress  -0.0031493  0.0232601   -0.135    0.892    
+shipping_methodSame Day -0.0202590  0.0336049   -0.603    0.547    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 141042  on 113558  degrees of freedom
+Residual deviance: 128570  on 113548  degrees of freedom
+AIC: 128592
+
+Number of Fisher Scoring iterations: 4
+
+
+--- Odds ratios (logit, robustez) ---
+                                       variable odds_ratio    ic_inf    ic_sup
+(Intercept)                         (Intercept)  3.1963072 2.9845436 3.4230961
+atrasado                               atrasado  0.1432631 0.1382150 0.1484955
+estimated_delivery_days estimated_delivery_days  0.9952800 0.9850560 1.0056101
+customer_age                       customer_age  0.9997871 0.9989756 1.0005992
+genderMale                           genderMale  0.9955874 0.9688128 1.0231021
+genderNon-Binary               genderNon-Binary  1.0405977 0.9690928 1.1173786
+customer_typeNew               customer_typeNew  0.8873301 0.6802569 1.1574374
+customer_typeReturning   customer_typeReturning  0.9571574 0.9051679 1.0121330
+shipping_methodEconomy   shipping_methodEconomy  0.9823393 0.9399476 1.0266430
+shipping_methodExpress   shipping_methodExpress  0.9968557 0.9524305 1.0433531
+shipping_methodSame Day shipping_methodSame Day  0.9799448 0.9174810 1.0466613
+
+Tablas LaTeX guardadas en salidas/tablas/
+
+--- Informacion de la sesion (para reproducibilidad) ---
+R version 4.6.1 (2026-06-24 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26300)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=Spanish_Colombia.utf8  LC_CTYPE=Spanish_Colombia.utf8    LC_MONETARY=Spanish_Colombia.utf8 LC_NUMERIC=C                     
+[5] LC_TIME=Spanish_Colombia.utf8    
+
+time zone: America/Bogota
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] readr_2.2.0   ggplot2_4.0.3 dplyr_1.2.1  
+
+loaded via a namespace (and not attached):
+ [1] crayon_1.5.3       vctrs_0.7.3        cli_3.6.6          rlang_1.3.0        generics_0.1.4     textshaping_1.0.5  S7_0.2.2          
+ [8] labeling_0.4.3     glue_1.8.1         bit_4.6.0          stats4_4.6.1       ragg_1.5.2         hms_1.1.4          scales_1.4.0      
+[15] grid_4.6.1         tibble_3.3.1       tzdb_0.5.0         lifecycle_1.0.5    compiler_4.6.1     RColorBrewer_1.1-3 pkgconfig_2.0.3   
+[22] rstudioapi_0.19.0  systemfonts_1.3.2  farver_2.1.2       R6_2.6.1           utf8_1.2.6         tidyselect_1.2.1   parallel_4.6.1    
+[29] vroom_1.7.1        pillar_1.11.1      magrittr_2.0.5     tools_4.6.1        withr_3.0.3        bit64_4.8.2        gtable_0.3.6      
+
+Fin del script de modelos.
+ Estimate Std. Error z value Pr(>|z|)    
+(Intercept)              1.0349390  0.0347020  29.824   <2e-16 ***
+diferencia_entrega      -0.6390928  0.0066058 -96.747   <2e-16 ***
+estimated_delivery_days -0.0054476  0.0052375  -1.040    0.298    
+customer_age            -0.0001761  0.0004117  -0.428    0.669    
+genderMale              -0.0039799  0.0138238  -0.288    0.773    
+genderNon-Binary         0.0353462  0.0360995   0.979    0.328    
+customer_typeNew        -0.1360491  0.1354109  -1.005    0.315    
+customer_typeReturning  -0.0392041  0.0283584  -1.382    0.167    
+shipping_methodEconomy  -0.0167644  0.0223883  -0.749    0.454    
+shipping_methodExpress  -0.0004236  0.0231407  -0.018    0.985    
+shipping_methodSame Day  0.0161822  0.0333692   0.485    0.628    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 141042  on 113558  degrees of freedom
+Residual deviance: 129357  on 113548  degrees of freedom
+AIC: 129379
+
+Number of Fisher Scoring iterations: 4
+
+
+--- Medidas de ajuste (logit) ---
+Pseudo R2 de McFadden:  0.0829 
+AIC:                    129378.9 
+Porcentaje de aciertos (corte 0.5):  73.19 %
+Observaciones:          113559 
+
+--- Odds ratios (logit) ---
+                                       variable odds_ratio    ic_inf    ic_sup
+(Intercept)                         (Intercept)  2.8149346 2.6298437 3.0130523
+diferencia_entrega           diferencia_entrega  0.5277710 0.5209819 0.5346486
+estimated_delivery_days estimated_delivery_days  0.9945672 0.9844100 1.0048293
+customer_age                       customer_age  0.9998239 0.9990175 1.0006311
+genderMale                           genderMale  0.9960280 0.9694039 1.0233834
+genderNon-Binary               genderNon-Binary  1.0359783 0.9652120 1.1119330
+customer_typeNew               customer_typeNew  0.8727998 0.6693491 1.1380899
+customer_typeReturning   customer_typeReturning  0.9615544 0.9095680 1.0165122
+shipping_methodEconomy   shipping_methodEconomy  0.9833754 0.9411576 1.0274869
+shipping_methodExpress   shipping_methodExpress  0.9995765 0.9552535 1.0459561
+shipping_methodSame Day shipping_methodSame Day  1.0163138 0.9519715 1.0850049
+
+=============================================================
+ROBUSTEZ LOGIT: atraso binario (atrasado = 1 si llego tarde)
+=============================================================
+
+Call:
+glm(formula = sentimiento_positivo ~ atrasado + estimated_delivery_days + 
+    customer_age + gender + customer_type + shipping_method, 
+    family = binomial(link = "logit"), data = datos_modelo)
+
+Coefficients:
+                          Estimate Std. Error  z value Pr(>|z|)    
+(Intercept)              1.1619961  0.0349748   33.224   <2e-16 ***
+atrasado                -1.9430727  0.0183025 -106.164   <2e-16 ***
+estimated_delivery_days -0.0047312  0.0052683   -0.898    0.369    
+customer_age            -0.0002129  0.0004143   -0.514    0.607    
+genderMale              -0.0044223  0.0139092   -0.318    0.751    
+genderNon-Binary         0.0397953  0.0363222    1.096    0.273    
+customer_typeNew        -0.1195382  0.1355875   -0.882    0.378    
+customer_typeReturning  -0.0437875  0.0284941   -1.537    0.124    
+shipping_methodEconomy  -0.0178185  0.0225069   -0.792    0.429    
+shipping_methodExpress  -0.0031493  0.0232601   -0.135    0.892    
+shipping_methodSame Day -0.0202590  0.0336049   -0.603    0.547    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 141042  on 113558  degrees of freedom
+Residual deviance: 128570  on 113548  degrees of freedom
+AIC: 128592
+
+Number of Fisher Scoring iterations: 4
+
+
+--- Odds ratios (logit, robustez) ---
+                                       variable odds_ratio    ic_inf    ic_sup
+(Intercept)                         (Intercept)  3.1963072 2.9845436 3.4230961
+atrasado                               atrasado  0.1432631 0.1382150 0.1484955
+estimated_delivery_days estimated_delivery_days  0.9952800 0.9850560 1.0056101
+customer_age                       customer_age  0.9997871 0.9989756 1.0005992
+genderMale                           genderMale  0.9955874 0.9688128 1.0231021
+genderNon-Binary               genderNon-Binary  1.0405977 0.9690928 1.1173786
+customer_typeNew               customer_typeNew  0.8873301 0.6802569 1.1574374
+customer_typeReturning   customer_typeReturning  0.9571574 0.9051679 1.0121330
+shipping_methodEconomy   shipping_methodEconomy  0.9823393 0.9399476 1.0266430
+shipping_methodExpress   shipping_methodExpress  0.9968557 0.9524305 1.0433531
+shipping_methodSame Day shipping_methodSame Day  0.9799448 0.9174810 1.0466613
+
+Tablas LaTeX guardadas en salidas/tablas/
+
+--- Informacion de la sesion (para reproducibilidad) ---
+R version 4.6.1 (2026-06-24 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26300)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=Spanish_Colombia.utf8  LC_CTYPE=Spanish_Colombia.utf8    LC_MONETARY=Spanish_Colombia.utf8 LC_NUMERIC=C                     
+[5] LC_TIME=Spanish_Colombia.utf8    
+
+time zone: America/Bogota
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] readr_2.2.0   ggplot2_4.0.3 dplyr_1.2.1  
+
+loaded via a namespace (and not attached):
+ [1] crayon_1.5.3       vctrs_0.7.3        cli_3.6.6          rlang_1.3.0        generics_0.1.4     textshaping_1.0.5  S7_0.2.2          
+ [8] labeling_0.4.3     glue_1.8.1         bit_4.6.0          stats4_4.6.1       ragg_1.5.2         hms_1.1.4          scales_1.4.0      
+[15] grid_4.6.1         tibble_3.3.1       tzdb_0.5.0         lifecycle_1.0.5    compiler_4.6.1     RColorBrewer_1.1-3 pkgconfig_2.0.3   
+[22] rstudioapi_0.19.0  systemfonts_1.3.2  farver_2.1.2       R6_2.6.1           utf8_1.2.6         tidyselect_1.2.1   parallel_4.6.1    
+[29] vroom_1.7.1        pillar_1.11.1      magrittr_2.0.5     tools_4.6.1        withr_3.0.3        bit64_4.8.2        gtable_0.3.6      
+
+Fin del script de modelos.
+ Estimate Std. Error z value Pr(>|z|)    
+(Intercept)              1.0349390  0.0347020  29.824   <2e-16 ***
+diferencia_entrega      -0.6390928  0.0066058 -96.747   <2e-16 ***
+estimated_delivery_days -0.0054476  0.0052375  -1.040    0.298    
+customer_age            -0.0001761  0.0004117  -0.428    0.669    
+genderMale              -0.0039799  0.0138238  -0.288    0.773    
+genderNon-Binary         0.0353462  0.0360995   0.979    0.328    
+customer_typeNew        -0.1360491  0.1354109  -1.005    0.315    
+customer_typeReturning  -0.0392041  0.0283584  -1.382    0.167    
+shipping_methodEconomy  -0.0167644  0.0223883  -0.749    0.454    
+shipping_methodExpress  -0.0004236  0.0231407  -0.018    0.985    
+shipping_methodSame Day  0.0161822  0.0333692   0.485    0.628    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 141042  on 113558  degrees of freedom
+Residual deviance: 129357  on 113548  degrees of freedom
+AIC: 129379
+
+Number of Fisher Scoring iterations: 4
+
+
+--- Medidas de ajuste (logit) ---
+Pseudo R2 de McFadden:  0.0829 
+AIC:                    129378.9 
+Porcentaje de aciertos (corte 0.5):  73.19 %
+Observaciones:          113559 
+
+--- Odds ratios (logit) ---
+                                       variable odds_ratio    ic_inf    ic_sup
+(Intercept)                         (Intercept)  2.8149346 2.6298437 3.0130523
+diferencia_entrega           diferencia_entrega  0.5277710 0.5209819 0.5346486
+estimated_delivery_days estimated_delivery_days  0.9945672 0.9844100 1.0048293
+customer_age                       customer_age  0.9998239 0.9990175 1.0006311
+genderMale                           genderMale  0.9960280 0.9694039 1.0233834
+genderNon-Binary               genderNon-Binary  1.0359783 0.9652120 1.1119330
+customer_typeNew               customer_typeNew  0.8727998 0.6693491 1.1380899
+customer_typeReturning   customer_typeReturning  0.9615544 0.9095680 1.0165122
+shipping_methodEconomy   shipping_methodEconomy  0.9833754 0.9411576 1.0274869
+shipping_methodExpress   shipping_methodExpress  0.9995765 0.9552535 1.0459561
+shipping_methodSame Day shipping_methodSame Day  1.0163138 0.9519715 1.0850049
+
+=============================================================
+ROBUSTEZ LOGIT: atraso binario (atrasado = 1 si llego tarde)
+=============================================================
+
+Call:
+glm(formula = sentimiento_positivo ~ atrasado + estimated_delivery_days + 
+    customer_age + gender + customer_type + shipping_method, 
+    family = binomial(link = "logit"), data = datos_modelo)
+
+Coefficients:
+                          Estimate Std. Error  z value Pr(>|z|)    
+(Intercept)              1.1619961  0.0349748   33.224   <2e-16 ***
+atrasado                -1.9430727  0.0183025 -106.164   <2e-16 ***
+estimated_delivery_days -0.0047312  0.0052683   -0.898    0.369    
+customer_age            -0.0002129  0.0004143   -0.514    0.607    
+genderMale              -0.0044223  0.0139092   -0.318    0.751    
+genderNon-Binary         0.0397953  0.0363222    1.096    0.273    
+customer_typeNew        -0.1195382  0.1355875   -0.882    0.378    
+customer_typeReturning  -0.0437875  0.0284941   -1.537    0.124    
+shipping_methodEconomy  -0.0178185  0.0225069   -0.792    0.429    
+shipping_methodExpress  -0.0031493  0.0232601   -0.135    0.892    
+shipping_methodSame Day -0.0202590  0.0336049   -0.603    0.547    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 141042  on 113558  degrees of freedom
+Residual deviance: 128570  on 113548  degrees of freedom
+AIC: 128592
+
+Number of Fisher Scoring iterations: 4
+
+
+--- Odds ratios (logit, robustez) ---
+                                       variable odds_ratio    ic_inf    ic_sup
+(Intercept)                         (Intercept)  3.1963072 2.9845436 3.4230961
+atrasado                               atrasado  0.1432631 0.1382150 0.1484955
+estimated_delivery_days estimated_delivery_days  0.9952800 0.9850560 1.0056101
+customer_age                       customer_age  0.9997871 0.9989756 1.0005992
+genderMale                           genderMale  0.9955874 0.9688128 1.0231021
+genderNon-Binary               genderNon-Binary  1.0405977 0.9690928 1.1173786
+customer_typeNew               customer_typeNew  0.8873301 0.6802569 1.1574374
+customer_typeReturning   customer_typeReturning  0.9571574 0.9051679 1.0121330
+shipping_methodEconomy   shipping_methodEconomy  0.9823393 0.9399476 1.0266430
+shipping_methodExpress   shipping_methodExpress  0.9968557 0.9524305 1.0433531
+shipping_methodSame Day shipping_methodSame Day  0.9799448 0.9174810 1.0466613
+
+Tablas LaTeX guardadas en salidas/tablas/
+
+--- Informacion de la sesion (para reproducibilidad) ---
+R version 4.6.1 (2026-06-24 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26300)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=Spanish_Colombia.utf8  LC_CTYPE=Spanish_Colombia.utf8    LC_MONETARY=Spanish_Colombia.utf8 LC_NUMERIC=C                     
+[5] LC_TIME=Spanish_Colombia.utf8    
+
+time zone: America/Bogota
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] readr_2.2.0   ggplot2_4.0.3 dplyr_1.2.1  
+
+loaded via a namespace (and not attached):
+ [1] crayon_1.5.3       vctrs_0.7.3        cli_3.6.6          rlang_1.3.0        generics_0.1.4     textshaping_1.0.5  S7_0.2.2          
+ [8] labeling_0.4.3     glue_1.8.1         bit_4.6.0          stats4_4.6.1       ragg_1.5.2         hms_1.1.4          scales_1.4.0      
+[15] grid_4.6.1         tibble_3.3.1       tzdb_0.5.0         lifecycle_1.0.5    compiler_4.6.1     RColorBrewer_1.1-3 pkgconfig_2.0.3   
+[22] rstudioapi_0.19.0  systemfonts_1.3.2  farver_2.1.2       R6_2.6.1           utf8_1.2.6         tidyselect_1.2.1   parallel_4.6.1    
+[29] vroom_1.7.1        pillar_1.11.1      magrittr_2.0.5     tools_4.6.1        withr_3.0.3        bit64_4.8.2        gtable_0.3.6      
+
+Fin del script de modelos.

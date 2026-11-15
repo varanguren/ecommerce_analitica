@@ -1,0 +1,23 @@
+\begin{table}[htbp]
+\centering
+\caption{Modelo logit: probabilidad de resena positiva}
+\label{tab:logit}
+\begin{tabular}{lcc}
+\toprule
+Variable & Coeficiente & (Err. est.) \\
+\midrule
+(Intercept) & 1.035*** & (0.035) \\
+diferencia\_entrega & -0.639*** & (0.007) \\
+estimated\_delivery\_days & -0.005 & (0.005) \\
+customer\_age & -0.000 & (0.000) \\
+genderMale & -0.004 & (0.014) \\
+genderNon-Binary & 0.035 & (0.036) \\
+customer\_typeNew & -0.136 & (0.135) \\
+customer\_typeReturning & -0.039 & (0.028) \\
+shipping\_methodEconomy & -0.017 & (0.022) \\
+shipping\_methodExpress & -0.000 & (0.023) \\
+shipping\_methodSame Day & 0.016 & (0.033) \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.9\textwidth}\footnotesize Errores estandar entre parentesis. *** p$<$0.01, ** p$<$0.05, * p$<$0.1. \end{minipage}
+\end{table}

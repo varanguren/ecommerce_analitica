@@ -1,0 +1,23 @@
+\begin{table}[htbp]
+\centering
+\caption{Regresion lineal multiple: calificacion del cliente}
+\label{tab:ols}
+\begin{tabular}{lcc}
+\toprule
+Variable & Coeficiente & (Err. est.) \\
+\midrule
+(Intercept) & 3.727*** & (0.007) \\
+diferencia\_entrega & -0.167*** & (0.001) \\
+estimated\_delivery\_days & -0.002 & (0.001) \\
+customer\_age & -0.000 & (0.000) \\
+genderMale & -0.001 & (0.003) \\
+genderNon-Binary & 0.011 & (0.007) \\
+customer\_typeNew & -0.016 & (0.027) \\
+customer\_typeReturning & -0.002 & (0.006) \\
+shipping\_methodEconomy & -0.003 & (0.004) \\
+shipping\_methodExpress & 0.002 & (0.005) \\
+shipping\_methodSame Day & 0.010 & (0.007) \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.9\textwidth}\footnotesize Errores estandar entre parentesis. *** p$<$0.01, ** p$<$0.05, * p$<$0.1. \end{minipage}
+\end{table}

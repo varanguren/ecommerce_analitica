@@ -1,0 +1,23 @@
+\begin{table}[htbp]
+\centering
+\caption{Regresion lineal multiple: especificacion con atraso binario}
+\label{tab:olsrob}
+\begin{tabular}{lcc}
+\toprule
+Variable & Coeficiente & (Err. est.) \\
+\midrule
+(Intercept) & 3.764*** & (0.007) \\
+atrasado & -0.531*** & (0.004) \\
+estimated\_delivery\_days & -0.001 & (0.001) \\
+customer\_age & -0.000 & (0.000) \\
+genderMale & -0.001 & (0.003) \\
+genderNon-Binary & 0.012* & (0.007) \\
+customer\_typeNew & -0.010 & (0.027) \\
+customer\_typeReturning & -0.003 & (0.006) \\
+shipping\_methodEconomy & -0.003 & (0.004) \\
+shipping\_methodExpress & 0.001 & (0.005) \\
+shipping\_methodSame Day & -0.003 & (0.007) \\
+\bottomrule
+\end{tabular}
+\begin{minipage}{0.9\textwidth}\footnotesize Errores estandar entre parentesis. *** p$<$0.01, ** p$<$0.05, * p$<$0.1. \end{minipage}
+\end{table}
